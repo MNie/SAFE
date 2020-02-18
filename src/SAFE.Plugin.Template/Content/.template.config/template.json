@@ -1,0 +1,82 @@
+﻿{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Michał Niegrzybowski",
+    "classifications": [
+        "SAFE",
+        "SAFE-Stack"
+    ],
+    "name": "SAFE-Stack Plugin v0.0.1-alpha001",
+    "tags": {
+        "language": "F#",
+        "type": "project"
+    },
+    "identity": "SAFE.Plugin.Template",
+    "shortName": "SAFEPlugin",
+    "sourceName": "SAFE.Plugin.Template",
+    "symbols": {
+        "createdate": {
+            "type": "generated",
+            "generator": "now",
+            "parameters": {
+              "format": "yyyy-MM-dd"
+            },
+            "replaces":"1970-01-01"
+        }
+    },
+    "sources": [
+        {
+            "exclude": [
+                "**/.template.config/**/*"
+            ],
+            "modifiers": []
+        }
+    ],
+    "SpecialCustomOperations": {
+        "**/paket.*": {
+            "operations": [
+                {
+                    "type": "conditional",
+                    "configuration": {
+                        "if": [
+                            "#if"
+                        ],
+                        "else": [
+                            "#else"
+                        ],
+                        "elseif": [
+                            "#elseif"
+                        ],
+                        "endif": [
+                            "#endif"
+                        ],
+                        "trim": "true",
+                        "wholeLine": "true"
+                    }
+                }
+            ]
+        },
+        "**/*.fs*": {
+            "operations": [
+                {
+                    "type": "conditional",
+                    "configuration": {
+                        "if": [
+                            "#if"
+                        ],
+                        "else": [
+                            "#else"
+                        ],
+                        "elseif": [
+                            "#elseif"
+                        ],
+                        "endif": [
+                            "#endif"
+                        ],
+                        "trim": "true",
+                        "wholeLine": "true"
+                    }
+                }
+            ]
+        }
+    }
+}
