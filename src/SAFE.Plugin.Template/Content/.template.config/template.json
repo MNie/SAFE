@@ -21,6 +21,29 @@
               "format": "yyyy-MM-dd"
             },
             "replaces":"1970-01-01"
+        },
+        "target": {
+            "type": "parameter",
+            "datatype": "choice",
+            "defaultValue": "all",
+            "choices": [
+                {
+                    "choice": "all",
+                    "description": "plugin made for all parts of application (client, server, shared)."
+                },
+                {
+                    "choice": "shared",
+                    "description": "plugin made for shared part of an application."
+                },
+                {
+                    "choice": "client",
+                    "description": "plugin made for client part of an application."
+                },
+                {
+                    "choice": "server",
+                    "description": "plugin made for server part of an application."
+                }
+            ]
         }
     },
     "sources": [
