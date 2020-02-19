@@ -25,12 +25,8 @@
         "target": {
             "type": "parameter",
             "datatype": "choice",
-            "defaultValue": "all",
+            "defaultValue": "shared",
             "choices": [
-                {
-                    "choice": "all",
-                    "description": "plugin made for all parts of application (client, server, shared)."
-                },
                 {
                     "choice": "shared",
                     "description": "plugin made for shared part of an application."
