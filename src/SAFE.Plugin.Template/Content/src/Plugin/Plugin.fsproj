@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Shared.fs" />
+    <Compile Include="Plugin.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SAFE\SAFE.fsproj" />
+    <ProjectReference Include="..\..\..\..\SAFE\SAFE.fsproj" />
   </ItemGroup>
 
   <Import Project="..\..\.paket\Paket.Restore.targets" />

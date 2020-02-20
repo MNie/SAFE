@@ -3,7 +3,8 @@
     "author": "Michał Niegrzybowski",
     "classifications": [
         "SAFE",
-        "SAFE-Stack"
+        "SAFE-Stack",
+        "SAFE-Plugin"
     ],
     "name": "SAFE-Stack Plugin v0.0.1-alpha001",
     "tags": {
@@ -40,6 +41,18 @@
                     "description": "plugin made for server part of an application."
                 }
             ]
+        },
+        "shared": {
+            "type": "computed",
+            "value": "(target == \"shared\")"
+        },
+        "server": {
+            "type": "computed",
+            "value": "(target == \"server\")"
+        },
+        "client": {
+            "type": "computed",
+            "value": "(target == \"client\")"
         }
     },
     "sources": [
