@@ -1,7 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Tomasz Heimowski</Authors>
+    <PackageId>Safe</PackageId>
+    <Product>Safe</Product>
+    <Description>Safe base logic</Description>
+    <Copyright>Tomasz Heimowski</Copyright>
+    <PackageTags>SAFE</PackageTags>
+    <DebugType>Full</DebugType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

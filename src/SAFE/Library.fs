@@ -213,11 +213,11 @@ module Core =
                 | "AfterPluginAdded" -> 
                     p.AfterPluginAdded()
                     if typeof<ISAFESharedPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Shared"
+                        addComponentPlugn name "Plugin"
                     if typeof<ISAFEClientPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Client"
+                        addComponentPlugn name "Plugin"
                     if typeof<ISAFEServerPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Server"
+                        addComponentPlugn name "Plugin"
                 | "BeforePluginRemoved" -> 
                     p.BeforePluginRemoved()
                 | _ ->
