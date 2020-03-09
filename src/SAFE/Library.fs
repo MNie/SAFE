@@ -2,11 +2,13 @@
 
 [<AbstractClass>]
 type SAFEPlugin() = 
+    abstract member Snippets: list<string * list<string * string>>
     abstract member AfterPluginAdded: unit -> unit
     abstract member BeforePluginRemoved: unit -> unit
 
     default __.AfterPluginAdded () = ()
     default __.BeforePluginRemoved () = ()
+    default __.Snippets = []
 
 type ISAFEClientPlugin = interface end
 type ISAFEServerPlugin = interface end
@@ -193,8 +195,23 @@ module Core =
             let lastCompileNode = xdoc.XPathSelectElements "//Compile" |> Seq.last
             lastCompileNode.AddBeforeSelf node
             xdoc.Save fsprojPath
+    
+    let removeContentFiles plugin _component =
+        let contentFiles = !! (sprintf "packages/%s.%s/Content/**.*" plugin _component)
+        for file in contentFiles do
+            let projDir = Path.combine "src" _component
+            let fsprojPath = Path.combine projDir (_component + ".fsproj")
+            let dest = Path.combine projDir (Path.GetFileName file)
+            printfn "Removing %s from %s" dest fsprojPath
+            let xdoc = XDocument.Load fsprojPath 
+            let xn = XName.op_Implicit
+            let node = xdoc.XPathSelectElements (sprintf "//Compile[@Include='%s']" (Path.GetFileName file)) |> Seq.head
+            node.Remove()
+            xdoc.Save fsprojPath
+            printfn "Removing %s" dest
+            File.Delete(dest)
 
-    let addComponentPlugn (plugin : string) _component =
+    let addComponentPlugin (plugin : string) _component =
         let capital = plugin.Substring(0,1).ToUpper() + plugin.Substring(1)
         let paket = Paket.Dependencies.Locate()
         let package = sprintf "%s.%s" capital _component
@@ -204,6 +221,48 @@ module Core =
         printfn "Package %s added to Paket %s group" package paketGroup
         addContentFiles capital _component
 
+    let removeComponentPlugin (plugin : string) _component =
+        let capital = plugin.Substring(0,1).ToUpper() + plugin.Substring(1)
+        let paket = Paket.Dependencies.Locate()
+        let package = sprintf "%s.%s" capital _component
+        removeContentFiles capital _component
+        paket.Remove package
+
+    let addSnippets(p: SAFEPlugin) =
+        for (file, snippets) in p.Snippets do
+            let lines = System.IO.File.ReadAllLines file |> ResizeArray
+            for (regex, snippet) in snippets do
+                printf "File '%s': line matching regex /%s/: " file regex
+                try
+                    let regex = System.Text.RegularExpressions.Regex regex
+                    match Seq.tryFindIndex regex.IsMatch lines with
+                    | None -> printfn "not found!"
+                    | Some lineNo -> 
+                        printfn "%d" lineNo
+                        printfn "Inserting following snippet after: '%s'" snippet
+                        lines.Insert(lineNo + 1, snippet)
+                with e ->
+                    printfn "Exception: %O" e
+            printfn "Saving file '%s'" file
+            System.IO.File.WriteAllLines (file, lines)
+
+    let removeSnippets(p: SAFEPlugin) =
+        for (file, snippets) in p.Snippets do
+            let lines = System.IO.File.ReadAllLines file |> ResizeArray
+            for (_, snippet) in snippets do
+                printf "File '%s': line with snippet '%s': " file snippet
+                try
+                    match Seq.tryFindIndex ((=) snippet) lines with
+                    | None -> printfn "not found!"
+                    | Some lineNo -> 
+                        printfn "%d" lineNo
+                        printfn "Deleting the line"
+                        lines.RemoveAt(lineNo)
+                with e ->
+                    printfn "Exception: %O" e
+            printfn "Saving file '%s'" file
+            System.IO.File.WriteAllLines (file, lines)
+
     let pluginCommand (p: Fake.Core.TargetParameter) =
         match getPlugin p, getCommand p with
         | Some name, Some methodName ->
@@ -211,15 +270,23 @@ module Core =
             | Some p -> 
                 match methodName with
                 | "AfterPluginAdded" -> 
-                    p.AfterPluginAdded()
                     if typeof<ISAFESharedPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Plugin"
+                        addComponentPlugin name "Shared"
                     if typeof<ISAFEClientPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Plugin"
+                        addComponentPlugin name "Client"
                     if typeof<ISAFEServerPlugin>.IsAssignableFrom (p.GetType()) then
-                        addComponentPlugn name "Plugin"
+                        addComponentPlugin name "Server"
+                    addSnippets p
+                    p.AfterPluginAdded()
                 | "BeforePluginRemoved" -> 
+                    removeSnippets p
                     p.BeforePluginRemoved()
+                    if typeof<ISAFESharedPlugin>.IsAssignableFrom (p.GetType()) then
+                        removeComponentPlugin name "Shared"
+                    if typeof<ISAFEClientPlugin>.IsAssignableFrom (p.GetType()) then
+                        removeComponentPlugin name "Client"
+                    if typeof<ISAFEServerPlugin>.IsAssignableFrom (p.GetType()) then
+                        removeComponentPlugin name "Server"
                 | _ ->
                     let typ = p.GetType()
                     let method = typ.GetMethod methodName
