@@ -306,7 +306,7 @@ module Config =
 
     open Thoth.Json.Net
 
-    let camelCase = true
+    let camelCase = CaseStrategy.CamelCase
 
     let parse raw =
         Decode.Auto.fromString<Config> (raw, camelCase)
