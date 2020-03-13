@@ -181,7 +181,7 @@ module Core =
     open System.Xml.XPath
 
     let addContentFiles plugin _component =
-        let contentFiles = !! (sprintf "packages/%s.%s/Content/**.*" plugin _component)
+        let contentFiles = !! (sprintf "packages/%s.Plugin/Content/**.*" plugin _component)
         for file in contentFiles do
             let projDir = Path.combine "src" _component
             let fsprojPath = Path.combine projDir (_component + ".fsproj")
@@ -197,7 +197,7 @@ module Core =
             xdoc.Save fsprojPath
     
     let removeContentFiles plugin _component =
-        let contentFiles = !! (sprintf "packages/%s.%s/Content/**.*" plugin _component)
+        let contentFiles = !! (sprintf "packages/%s.Plugin/Content/**.*" plugin _component)
         for file in contentFiles do
             let projDir = Path.combine "src" _component
             let fsprojPath = Path.combine projDir (_component + ".fsproj")
@@ -214,7 +214,7 @@ module Core =
     let addComponentPlugin (plugin : string) _component =
         let capital = plugin.Substring(0,1).ToUpper() + plugin.Substring(1)
         let paket = Paket.Dependencies.Locate()
-        let package = sprintf "%s.%s" capital _component
+        let package = sprintf "%s.Plugin" capital
         let paketGroup = "main"
         printfn "Adding %s package to Paket %s group..."  package paketGroup
         paket.AddToProject(Some paketGroup, package, "", false, false, false, false, sprintf "src/%s/%s.fsproj" _component _component, true, Paket.SemVerUpdateMode.NoRestriction, false)
@@ -224,7 +224,7 @@ module Core =
     let removeComponentPlugin (plugin : string) _component =
         let capital = plugin.Substring(0,1).ToUpper() + plugin.Substring(1)
         let paket = Paket.Dependencies.Locate()
-        let package = sprintf "%s.%s" capital _component
+        let package = sprintf "%s.Plugin" capital
         removeContentFiles capital _component
         paket.Remove package
 
