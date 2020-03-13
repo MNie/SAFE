@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Michał Niegrzybowski</Authors>
+    <PackageId>SAFE.Plugin.Template.Runner</PackageId>
+    <Product>SAFE.Plugin.Template.Runner</Product>
+    <Description>Custom plugin for SAFE stack.</Description>
+    <Copyright>Michał Niegrzybowski</Copyright>
+    <PackageTags>SAFE, SAFE-Plugin, Plugin</PackageTags>
+    <DebugType>Full</DebugType>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <Compile Include="Runner.fs" />
+      <Compile Include="Version.fs" />
+      <None Include="paket.references" />
+  </ItemGroup>
+
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
