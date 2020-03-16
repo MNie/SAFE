@@ -5,17 +5,17 @@ open SAFE.Core
 
 #if (server)
     module Server =
-        type PluginName ()
+        type Safe.Plugin.Template ()
             inherit SAFEPlugin()
             interface ISAFEServerPlugin
 #elif (client)
     module Client =
-        type PluginName ()
+        type Safe.Plugin.Template ()
             inherit SAFEPlugin()
             interface ISAFEClientPlugin
 #elif (shared)
     module Shared =
-        type PluginName ()
+        type Safe.Plugin.Template ()
             inherit SAFEPlugin()
             interface ISAFESharedPlugin
 #endif

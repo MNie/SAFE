@@ -11,12 +11,9 @@ open System
 open Fake.Core
 open Fake.DotNet
 open Fake.IO
-open Fake.IO.FileSystemOperators
-open Fake.IO.Globbing.Operators
 open Fake.Tools
 
-let templatePath = "./src/Content/.template.config/template.json"
-let versionFilePath = "./src/Content/src/Runner/Version.fs"
+let templatePath = "./Content/.template.config/template.json"
 let templateProj = "SAFE.Plugin.Template.proj"
 let templateName = "SAFE-Stack Plugin"
 let nupkgDir = Path.getFullName "./nupkg"
@@ -30,7 +27,7 @@ let formattedRN =
 
 Target.create "Clean" (fun _ ->
     Shell.cleanDirs [ nupkgDir ]
-    Git.CommandHelper.directRunGitCommandAndFail "./src/Content" "clean -fxd"
+    Git.CommandHelper.directRunGitCommandAndFail "./Content" "clean -fxd"
 )
 
 Target.create "Pack" (fun _ ->
@@ -39,11 +36,6 @@ Target.create "Pack" (fun _ ->
        ("  \"name\": \"" + templateName + " v" + release.NugetVersion + "\",")
         System.Text.Encoding.UTF8
         templatePath
-    //Shell.regexReplaceInFileWithEncoding
-    //    "let template = \".+\""
-    //   ("let template = \"" + release.NugetVersion + "\"")
-    //    System.Text.Encoding.UTF8
-    //    versionFilePath
     DotNet.pack
         (fun args ->
             { args with
@@ -131,4 +123,4 @@ open Fake.Core.TargetOperators
     ==> "Push"
     ==> "Release"
 
-Target.runOrDefaultWithArguments "Install"
+Target.runOrDefaultWithArguments "Pack"
