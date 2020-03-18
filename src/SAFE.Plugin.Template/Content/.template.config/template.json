@@ -57,20 +57,24 @@
                 {
                     "choice": "clisha",
                     "description": "plugin made for client and shared part of an application."
+                },
+                {
+                    "choice": "all",
+                    "description": "plugin made for server, client and shared part of an application."
                 }
             ]
         },
         "shared": {
             "type": "computed",
-            "value": "(target == \"shared\" || target == \"clisha\" || target == \"sersha\")"
+            "value": "(target == \"shared\" || target == \"clisha\" || target == \"sersha\") || target == \"all\""
         },
         "server": {
             "type": "computed",
-            "value": "(target == \"server\" || target == \"sercli\" || target == \"sersha\")"
+            "value": "(target == \"server\" || target == \"sercli\" || target == \"sersha\") || target == \"all\""
         },
         "client": {
             "type": "computed",
-            "value": "(target == \"client\" || target == \"clisha\" || target == \"sercli\")"
+            "value": "(target == \"client\" || target == \"clisha\" || target == \"sercli\") || target == \"all\""
         }
     },
     "sources": [
