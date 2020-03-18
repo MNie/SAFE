@@ -64,20 +64,23 @@
     "sources": [
         {
             "exclude": [
-                "**/.template.config/**/*"
+                "**/.template.config/**/*",
+                "**/src/Server/**/*",
+                "**/src/Client/**/*",
+                "**/src/Shared/**/*"
             ],
             "modifiers": [
                 {
                     "include": ["**/src/Server/**/*"],
-                    "condition": "(server == true)"
+                    "condition": "(server)"
                 },
                 {
                     "include": ["**/src/Client/**/*"],
-                    "condition": "(client == true)"
+                    "condition": "(client)"
                 },
                 {
                     "include": ["**/src/Shared/**/*"],
-                    "condition": "(shared == true)"
+                    "condition": "(shared)"
                 }
             ]
         }
