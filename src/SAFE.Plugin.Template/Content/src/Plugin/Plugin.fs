@@ -1,5 +1,15 @@
-namespace SAFE.Plugin.Template.Plugin
+namespace SAFE.SAFE.Plugin.Template
 
-module SampleModule =
-    let sampleMethod () =
-        sprintf "Here you could place your plugin logic!"
+open SAFE
+open SAFE.Core
+
+    module Server =
+        type SAFE.Plugin.Template () =
+            inherit SAFEPlugin()
+#if (server)
+            interface ISAFEServerPlugin
+#elif (client)
+            interface ISAFEClientPlugin
+#elif (shared)
+            interface ISAFESharedPlugin
+#endif

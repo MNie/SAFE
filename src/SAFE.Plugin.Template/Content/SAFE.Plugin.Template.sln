@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Runner", "src\Runner\Runner.fsproj", "{8410F039-8343-4391-B566-4AFF5C87162C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Shared", "src\Shared\SAFE.SAFE.Plugin.Template.Shared.fsproj", "{8410F039-8343-4391-B566-4AFF5C87162C}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Plugin", "src\Plugin\Plugin.fsproj", "{B02CD397-2DD7-4AF0-B257-8AEC18E439BA}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Plugin", "src\Plugin\SAFE.SAFE.Plugin.Template.fsproj", "{B02CD397-2DD7-4AF0-B257-8AEC18E439BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,19 +5,19 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
     <Authors>Michał Niegrzybowski</Authors>
-    <PackageId>SAFE.Plugin.Template</PackageId>
-    <Product>SAFE.Plugin.Template</Product>
-    <Description>Custom plugin for SAFE stack.</Description>
+    <PackageId>SAFE.SAFE.Plugin.Template.Client</PackageId>
+    <Product>SAFE.SAFE.Plugin.Template.Client</Product>
+    <Description>Custom client plugin for SAFE stack.</Description>
     <Copyright>Michał Niegrzybowski</Copyright>
-    <PackageTags>SAFE, SAFE-Plugin, Plugin</PackageTags>
+    <PackageTags>SAFE, SAFE-Plugin, Plugin, SAFE Client</PackageTags>
     <DebugType>Full</DebugType>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-      <Compile Include="Runner.fs" />
-      <None Include="paket.references" />
+    <Compile Include="Plugin.fs" />
+    <None Include="paket.references" />
   </ItemGroup>
 
   <Import Project="..\..\.paket\Paket.Restore.targets" />

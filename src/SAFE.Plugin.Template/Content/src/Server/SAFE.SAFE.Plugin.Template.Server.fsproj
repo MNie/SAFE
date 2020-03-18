@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Michał Niegrzybowski</Authors>
+    <PackageId>SAFE.SAFE.Plugin.Template.Server</PackageId>
+    <Product>SAFE.SAFE.Plugin.Template.Server</Product>
+    <Description>Custom server plugin for SAFE stack.</Description>
+    <Copyright>Michał Niegrzybowski</Copyright>
+    <PackageTags>SAFE, SAFE-Plugin, Plugin, SAFE Server</PackageTags>
+    <DebugType>Full</DebugType>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Plugin.fs" />
+    <None Include="paket.references" />
+  </ItemGroup>
+
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
