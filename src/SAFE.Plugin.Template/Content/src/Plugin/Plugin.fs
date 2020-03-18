@@ -3,7 +3,7 @@ namespace SAFE.SAFE.Plugin.Template
 open SAFE
 open SAFE.Core
 
-    module Server =
+    module Plugin =
         type SAFE.Plugin.Template () =
             inherit SAFEPlugin()
 #if (server)
