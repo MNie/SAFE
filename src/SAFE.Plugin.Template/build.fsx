@@ -50,21 +50,6 @@ Target.create "Pack" (fun _ ->
         templateProj
 )
 
-Target.create "Install" (fun _ ->
-    let args =
-      let packages = [ "SAFE.Plugin.Template.Runner"; "SAFE.Plugin.Template.Plugin" ]
-      let create arg =
-          let nupkgFileName = sprintf "SAFE.Plugin.Template.%s.nupkg" release.NugetVersion
-          let fullPathToNupkg = System.IO.Path.Combine(nupkgDir, nupkgFileName)
-          sprintf "-i \"%s\"" fullPathToNupkg
-      packages |> List.map create
-    args
-    |> List.iter (fun arg -> 
-        let result = DotNet.exec (fun x -> { x with DotNetCliPath = "dotnet" }) "new" arg
-        if not result.OK then failwithf "`dotnet %s` failed with %O" arg result
-    )
-)
-
 let psi exe arg dir (x: ProcStartInfo) : ProcStartInfo =
     { x with
         FileName = exe
@@ -118,7 +103,6 @@ open Fake.Core.TargetOperators
 
 "Clean"
     ==> "Pack"
-    ==> "Install"
     ==> "Tests"
     ==> "Push"
     ==> "Release"

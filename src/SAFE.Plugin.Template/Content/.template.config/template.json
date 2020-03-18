@@ -45,20 +45,32 @@
                 {
                     "choice": "server",
                     "description": "plugin made for server part of an application."
+                },
+                {
+                    "choice": "sersha",
+                    "description": "plugin made for server and shared part of an application."
+                },
+                {
+                    "choice": "sercli",
+                    "description": "plugin made for server and client part of an application."
+                },
+                {
+                    "choice": "clisha",
+                    "description": "plugin made for client and shared part of an application."
                 }
             ]
         },
         "shared": {
             "type": "computed",
-            "value": "(target == \"shared\")"
+            "value": "(target == \"shared\" || target == \"clisha\" || target == \"sersha\")"
         },
         "server": {
             "type": "computed",
-            "value": "(target == \"server\")"
+            "value": "(target == \"server\" || target == \"sercli\" || target == \"sersha\")"
         },
         "client": {
             "type": "computed",
-            "value": "(target == \"client\")"
+            "value": "(target == \"client\" || target == \"clisha\" || target == \"sercli\")"
         }
     },
     "sources": [
